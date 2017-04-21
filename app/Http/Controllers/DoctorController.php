@@ -25,7 +25,13 @@ class DoctorController extends Controller
     */
    public function create()
    {
-      return  "doctor create";
+    
+//      return  response()->json([
+//          'msg'=>'doctor created', 
+//          'post'=>[
+//            'id' => $post->id ]
+//        ],200);
+       return response()->json();
    }
    /**
     * Store a newly created resource in storage.
