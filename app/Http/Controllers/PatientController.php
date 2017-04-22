@@ -69,6 +69,18 @@ class PatientController extends Controller {
         return response()->json($response, 201);
     }
 
+    public function read_appointments($id) {
+        $patients_meetings = \App\Appointment::where('PATIENT_id', $id)->get();
+        return response()->json($patients_meetings, 201);
+    }
+
+    public function read_appointment($patient_id, $appointment_id) {
+        $patient_meeting = \App\Appointment::query()
+                        ->where('PATIENT_id', $patient_id)
+                        ->where('id', $appointment_id)->get();
+        return response()->json($patient_meeting, 201);
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
