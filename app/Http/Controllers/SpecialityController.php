@@ -24,12 +24,14 @@ class SpecialityController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function show($id) {
+
         $speciality = \App\Speciality::findOrFail($id);
         $response = [
             'id' => $speciality->id,
             'name' => $speciality->name,
             'price_per_appointment' => $speciality->price_per_appointment
         ];
+
         return response()->json($response, 201);
     }
 
@@ -39,8 +41,13 @@ class SpecialityController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id) {
-        //
+    public function edit(Request $request, $id) {
+        // $update_speciality = \App\Speciality::where('id', $id)->get();
+        $update_speciality = \App\Speciality::query()
+                ->where('id', $id)
+                ->update(['price_per_appointment' => $request->input('price_per_appointment')]);
+        $speciality = \App\Speciality::findOrFail($id);
+        return response()->json($speciality, 201);
     }
 
 }
