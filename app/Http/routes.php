@@ -25,6 +25,7 @@ Route::get('/', array('as' => 'home', 'uses' => 'HomeController@index'));
 Route::group(['prefix' => '/doctor'], function() {
     Route::post('/create', ['uses' => 'DoctorController@store']);
     Route::post('/{id}/edit', ['uses' => 'DoctorController@update']);
+    Route::post('/{id}/appointment', ['uses' => 'DoctorController@doctor_appointments_by_date']);
     Route::put('/{id}/edit', ['uses' => 'DoctorController@update']);
     Route::delete('/{id}/delete', ['uses' => 'DoctorController@destroy']);
     Route::get('/{id}/delete', ['uses' => 'DoctorController@destroy']);
