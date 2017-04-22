@@ -90,6 +90,11 @@ class DoctorController extends Controller {
         return response()->json($doctors_meeting, 201);
     }
 
+    public function doctors_by_speciality($spec_id) {
+        $doctors_spec = \App\Doctor::where('SPECIALITY_id', $spec_id)->get();
+        return response()->json($doctors_spec, 201);
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
