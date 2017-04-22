@@ -61,6 +61,12 @@ Route::group(['prefix' => '/patient'], function() {
     Route::get('/{id}', ['uses' => 'PatientController@show']);
     Route::get('/', ['uses' => 'PatientController@index']);
 });
+
+Route::group(['prefix' => '/speciality'], function() {
+    Route::post('/{id}/edit', ['uses' => 'SpecialityController@edit']);
+    Route::get('/{id}', ['uses' => 'SpecialityController@show']);
+    Route::get('/', ['uses' => 'SpecialityController@index']);
+});
 //Route::resource('appointment', function($id = null){
 //    echo "doctor READ".$id;
 //});

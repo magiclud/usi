@@ -62,7 +62,18 @@ class DoctorController extends Controller {
      * @return Response
      */
     public function show($id) {
-        return "doctor show id";
+        $doctor = \App\Doctor::findOrFail($id);
+        $response = [
+            'speciality_id' => $doctor->SPECIALITY_id,
+            'first_name' => $doctor->first_name,
+            'last_name' => $doctor->last_name,
+            'phone' => $doctor->phone,
+            'gender' => $doctor->gender,
+            'birthday' => $doctor->birthday,
+            'email' => $doctor->email,
+            'room' => $doctor->room
+        ];
+        return response()->json($response, 201);
     }
 
     /**

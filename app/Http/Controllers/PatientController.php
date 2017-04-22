@@ -55,7 +55,17 @@ class PatientController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function show($id) {
-        //
+        $patient = \App\Patient::findOrFail($id);
+        $response = [
+            'id' => $patient->id,
+            'first_name' => $patient->first_name,
+            'last_name' => $patient->last_name,
+            'phone' => $patient->phone,
+            'gender' => $patient->gender,
+            'birthday' => $patient->birthday,
+            'email' => $patient->email
+        ];
+        return response()->json($response, 201);
     }
 
     /**

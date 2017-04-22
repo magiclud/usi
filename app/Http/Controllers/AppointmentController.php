@@ -72,23 +72,15 @@ class AppointmentController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function show($id) {
-        $appointment = [
-            'id' => 'id',
-            'doctor_id' => 'doctor_id',
-            'patient_id' => 'patient_id',
-            'date' => 'date',
-            'duration' => 'duratio',
-            'read_meeting' => [
-                'href' => 'app.usi/appointment',
-                'method' => 'GET'
-            ]
-        ];
-
+        $appointment = \App\Appointment::findOrFail($id);
         $response = [
-            'msg' => 'Appointment from show method',
-            'meetings' => $appointment
+            'id' => $appointment->id,
+            'doctor_id' => $appointment->DOCTOR_id,
+            'patient_id' => $appointment->PATIENT_id,
+            'date' => $appointment->date,
+            'duration' => $appointment->duration
         ];
-        return response()->json($response, 200);
+        return response()->json($response, 201);
     }
 
     /**
