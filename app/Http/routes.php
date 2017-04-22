@@ -28,7 +28,8 @@ Route::group(['prefix' => '/doctor'], function() {
     Route::put('/{id}/edit', ['uses' => 'DoctorController@edit']);
     Route::delete('/{id}/delete', ['uses' => 'DoctorController@destroy']);
     Route::get('/{id}/delete', ['uses' => 'DoctorController@destroy']);
-    Route::get('/{id}/appointment', ['uses' => 'DoctorController@read_appointment']);
+    Route::get('/{id}/appointment', ['uses' => 'DoctorController@read_appointments']);
+    Route::get('/{doctor_id}/appointment/{id}', ['uses' => 'DoctorController@read_appointment']);
     Route::get('/{id}', ['uses' => 'DoctorController@show']);
     Route::get('/', ['uses' => 'DoctorController@index']);
 });

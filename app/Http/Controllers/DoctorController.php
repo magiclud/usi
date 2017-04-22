@@ -78,8 +78,15 @@ class DoctorController extends Controller {
         return response()->json($response, 201);
     }
 
-    public function read_appointment($id) {
-        $doctors_meeting = \App\Appointment::where('DOCTOR_id', $id)->get();
+    public function read_appointments($id) {
+        $doctors_meetings = \App\Appointment::where('DOCTOR_id', $id)->get();
+        return response()->json($doctors_meetings, 201);
+    }
+
+    public function read_appointment($doctor_id, $appointment_id) {
+        $doctors_meeting = \App\Appointment::query()
+                        ->where('DOCTOR_id', $doctor_id)
+                        ->where('id', $appointment_id)->get();
         return response()->json($doctors_meeting, 201);
     }
 
