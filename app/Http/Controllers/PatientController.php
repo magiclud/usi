@@ -81,6 +81,25 @@ class PatientController extends Controller {
         return response()->json($patient_meeting, 201);
     }
 
+    public function appointments_by_date(Request $request, $id) {
+        $patient_meetings = \App\Appointment::query()
+                        ->where('PATIENT_id', $id)
+                        ->whereDate('date', '=', $request->input('date'))->get();
+        return response()->json($patient_meetings, 201);
+    }
+
+    public function appointments_by_speciality(Request $request, $id) {
+        $list = \App\Doctor::where('SPECIALITY_id', $request->input('speciality_id'))->pluck('id');
+        $patient_meetings = \App\Appointment::where('PATIENT_id', '=', $id)
+                ->whereDate('date', '=', $request->input('date'))
+                ->orWhereIn('DOCTOR_id', $list)->where('PATIENT_id', '=', $id)
+//                ->orWhere(function ($query, Request $request) {
+//                    $query->whereDate('date', '=', $request->input('date'));
+//                })
+                ->get();
+        return response()->json($patient_meetings, 201);
+    }
+
     /**
      * Show the form for editing the specified resource.
      *

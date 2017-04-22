@@ -95,8 +95,6 @@ class DoctorController extends Controller {
         return response()->json($doctors_spec, 201);
     }
 
-//TODO
-    // zeby czytalo tylko date nie godzine
     public function doctor_appointments_by_date(Request $request, $id) {
         $doctors_meeting = \App\Appointment::query()
                         ->where('DOCTOR_id', $id)
