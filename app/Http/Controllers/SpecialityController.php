@@ -41,7 +41,7 @@ class SpecialityController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Request $request, $id) {
+    public function update(Request $request, $id) {
         // $update_speciality = \App\Speciality::where('id', $id)->get();
         $update_speciality = \App\Speciality::query()
                 ->where('id', $id)

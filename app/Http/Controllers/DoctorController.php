@@ -111,8 +111,12 @@ class DoctorController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function update($id) {
-        //
+    public function update(Request $request, $id) {
+        $update_doctor = \App\Doctor::query()
+                ->where('id', $id)
+                ->update(['phone' => $request->input('phone')]);
+        $patient = \App\Doctor::findOrFail($id);
+        return response()->json($patient, 201);
     }
 
     /**

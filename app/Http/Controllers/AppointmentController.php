@@ -83,27 +83,11 @@ class AppointmentController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id) {
-        $doctor_id = $request->input('doctor_id');
-        $patient_id = $request->input('patient_id');
-        $date = $request->input('date');
-        $duration = $request->input('duration');
-        $appointment = [
-            'doctor_id' => $doctor_id,
-            'patient_id' => $patient_id,
-            'date' => $date,
-            'duration' => $duration,
-            'read_appointment' => [
-                'href' => 'app.usi/appointment/1',
-                'method' => 'GET'
-            ]
-        ];
-
-        $response = [
-            'msg' => 'Appointment updated',
-            'appointment' => $appointment
-        ];
-
-        return response()->json($response, 200);
+        $update_appointment = \App\Appointment::query()
+                ->where('id', $id)
+                ->update(['date' => $request->input('date')]);
+        $appointment = \App\Appointment::findOrFail($id);
+        return response()->json($appointment, 201);
     }
 
     /**

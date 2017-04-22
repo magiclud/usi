@@ -24,8 +24,8 @@ Route::get('/', array('as' => 'home', 'uses' => 'HomeController@index'));
 //Route::post('/doctor/create', ['uses' => 'DoctorController@store']);
 Route::group(['prefix' => '/doctor'], function() {
     Route::post('/create', ['uses' => 'DoctorController@store']);
-    Route::post('/{id}/edit', ['uses' => 'DoctorController@edit']);
-    Route::put('/{id}/edit', ['uses' => 'DoctorController@edit']);
+    Route::post('/{id}/edit', ['uses' => 'DoctorController@update']);
+    Route::put('/{id}/edit', ['uses' => 'DoctorController@update']);
     Route::delete('/{id}/delete', ['uses' => 'DoctorController@destroy']);
     Route::get('/{id}/delete', ['uses' => 'DoctorController@destroy']);
     Route::get('/{doctor_id}/appointment', ['uses' => 'DoctorController@read_appointments']);
@@ -35,30 +35,18 @@ Route::group(['prefix' => '/doctor'], function() {
     Route::get('/', ['uses' => 'DoctorController@index']);
 });
 Route::group(['prefix' => '/appointment'], function() {
-    Route::post('/create', ['uses' => 'AppointmentController@store',
-        'as' => 'appointment',
-    ]);
-    Route::post('/{id}/edit', ['uses' => 'AppointmentController@edit',
-        'as' => 'appointment',
-    ]);
-    Route::put('/{id}/edit', ['uses' => 'AppointmentController@edit',
-        'as' => 'appointment',
-    ]);
-    Route::delete('/{id}/delete', ['uses' => 'AppointmentController@destroy',
-        'as' => 'appointment',
-    ]);
-    Route::get('/{id}', ['uses' => 'AppointmentController@show',
-        'as' => 'appointment',
-    ]);
-    Route::get('/', ['uses' => 'AppointmentController@index',
-        'as' => 'appointment',
-    ]);
+    Route::post('/create', ['uses' => 'AppointmentController@store']);
+    Route::post('/{id}/edit', ['uses' => 'AppointmentController@update']);
+    Route::put('/{id}/edit', ['uses' => 'AppointmentController@update']);
+    Route::delete('/{id}/delete', ['uses' => 'AppointmentController@destroy']);
+    Route::get('/{id}', ['uses' => 'AppointmentController@show']);
+    Route::get('/', ['uses' => 'AppointmentController@index']);
 });
 //
 Route::group(['prefix' => '/patient'], function() {
     Route::post('/create', ['uses' => 'PatientController@store']);
-    Route::post('/{id}/edit', ['uses' => 'PatientController@edit']);
-    Route::put('/{id}/edit', ['uses' => 'PatientController@edit']);
+    Route::post('/{id}/edit', ['uses' => 'PatientController@update']);
+    Route::put('/{id}/edit', ['uses' => 'PatientController@update']);
     Route::delete('/{id}/delete', ['uses' => 'PatientController@destroy']);
     Route::get('/{patient_id}/appointment', ['uses' => 'PatientController@read_appointments']);
     Route::get('/{patient_id}/appointment/{id}', ['uses' => 'PatientController@read_appointment']);
@@ -68,7 +56,7 @@ Route::group(['prefix' => '/patient'], function() {
 });
 
 Route::group(['prefix' => '/speciality'], function() {
-    Route::post('/{id}/edit', ['uses' => 'SpecialityController@edit']);
+    Route::post('/{id}/edit', ['uses' => 'SpecialityController@update']);
     Route::get('/{id}', ['uses' => 'SpecialityController@show']);
     Route::get('/', ['uses' => 'SpecialityController@index']);
 });

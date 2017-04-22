@@ -99,7 +99,11 @@ class PatientController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id) {
-        //
+        $update_patient = \App\Patient::query()
+                ->where('id', $id)
+                ->update(['last_name' => $request->input('last_name')]);
+        $patient = \App\Patient::findOrFail($id);
+        return response()->json($patient, 201);
     }
 
     /**
