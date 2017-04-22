@@ -13,8 +13,10 @@ class DoctorController extends Controller {
      * @return Response
      */
     public function index() {
-        $doctors = Doctor::all();
-        return view('doctors.index', compact('doctors'));
+        $doctors = \App\Doctor::all();
+//        return view('doctors.index', compact('doctors'));
+        // return view('doctors.index', ['doctors' => $doctors]);
+        return response()->json($doctors, 201);
     }
 
     /**

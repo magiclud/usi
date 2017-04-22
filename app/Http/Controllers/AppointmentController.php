@@ -13,26 +13,8 @@ class AppointmentController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function index() {
-        $appointment = [
-            'id' => 'id',
-            'doctor_id' => 'doctor_id',
-            'patient_id' => 'patient_id',
-            'date' => 'date',
-            'duration' => 'duratio',
-            'read_meeting' => [
-                'href' => 'app.usi/appointment/1',
-                'method' => 'GET'
-            ]
-        ];
-
-        $response = [
-            'msg' => 'List of all Appointments from index method',
-            'meetings' => [
-                $appointment,
-                $appointment
-            ]
-        ];
-        return response()->json($response, 200);
+        $appointment = \App\Appointment::all();
+        return response()->json($appointment, 201);
     }
 
     /**

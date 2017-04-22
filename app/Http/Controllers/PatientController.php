@@ -14,7 +14,8 @@ class PatientController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function index() {
-        //
+        $patients = \App\Patient::all();
+        return response()->json($patients, 201);
     }
 
     /**

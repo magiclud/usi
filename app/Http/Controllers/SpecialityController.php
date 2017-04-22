@@ -13,7 +13,8 @@ class SpecialityController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function index() {
-        //
+        $speciality = \App\Speciality::all();
+        return response()->json($speciality, 201);
     }
 
     /**
