@@ -97,14 +97,9 @@ class AppointmentController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function destroy($id) {
-        $response = [
-            'msg' => 'Appointment deleted',
-            'create' => [
-                'href' => 'app.usi/appointment',
-                'method' => 'POST',
-                'params' => 'doctor_id', 'patient_id', 'date', 'duration'
-            ]
-        ];
+        \App\Appointment::query()
+                ->where('id', $id)->delete();
+        return response()->json($id, 201);
     }
 
 }

@@ -133,7 +133,9 @@ class DoctorController extends Controller {
      * @return Response
      */
     public function destroy($id) {
-        //
+        \App\Doctor::query()
+                ->where('id', $id)->delete();
+        return response()->json($id, 201);
     }
 
 }

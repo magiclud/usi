@@ -40,6 +40,7 @@ Route::group(['prefix' => '/appointment'], function() {
     Route::post('/{id}/edit', ['uses' => 'AppointmentController@update']);
     Route::put('/{id}/edit', ['uses' => 'AppointmentController@update']);
     Route::delete('/{id}/delete', ['uses' => 'AppointmentController@destroy']);
+    Route::get('/{id}/delete', ['uses' => 'AppointmentController@destroy']);
     Route::get('/{id}', ['uses' => 'AppointmentController@show']);
     Route::get('/', ['uses' => 'AppointmentController@index']);
 });
@@ -48,7 +49,7 @@ Route::group(['prefix' => '/patient'], function() {
     Route::post('/create', ['uses' => 'PatientController@store']);
     Route::post('/{id}/edit', ['uses' => 'PatientController@update']);
     // Route::post('/{id}/appointment', ['uses' => 'PatientController@appointments_by_date']);
-    Route::post('/{id}/appointment', ['uses' => 'PatientController@appointments_by_speciality']);
+    Route::post('/{id}/appointment', ['uses' => 'PatientController@appointments_by_speciality_and_by_date']);
     Route::put('/{id}/edit', ['uses' => 'PatientController@update']);
     Route::delete('/{id}/delete', ['uses' => 'PatientController@destroy']);
     Route::get('/{patient_id}/appointment', ['uses' => 'PatientController@read_appointments']);
