@@ -33,20 +33,18 @@ class PatientController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request) {
-        $first_name = $request->input('first_name');
-        $last_name = $request->input('last_name');
-        $phone = $request->input('phone');
-        $gender = $request->input('gender');
-        $birthday = $request->input('birthday');
-        $email = $request->input('email');
-
-        DB::insert('insert into patient (first_name, last_name, phone, gender, birthday, email) values (?, ?, ?, ?, ?, ?)', [
-            $first_name, $last_name, $phone, $gender, $birthday, $email]);
+        $patient = new \App\Patient();
+        $patient->first_name = $request->input('first_name');
+        $patient->last_name = $request->input('last_name');
+        $patient->phone = $request->input('phone');
+        $patient->gender = $request->input('gender');
+        $patient->birthday = $request->input('birthday');
+        $patient->email = $request->input('email');
+        $patient->save();
 
         $response = [
-            'id' => $id
+            'id' => $patient->id
         ];
-
         return response()->json($response, 201);
     }
 

@@ -51,27 +51,17 @@ class AppointmentController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request) {
-        $doctor_id = $request->input('doctor_id');
-        $patient_id = $request->input('patient_id');
-        $date = $request->input('date');
-        $duration = $request->input('duration');
 
-        $appointment = [
-            'doctor_id' => $doctor_id,
-            'patient_id' => $patient_id,
-            'date' => $date,
-            'duration' => $duration,
-            'read_appointment' => [
-                'href' => 'app.usi/appointment/1',
-                'method' => 'GET'
-            ]
-        ];
+        $appointment = new \App\Appointment();
+        $appointment->doctor_id = $request->input('doctor_id');
+        $appointment->patient_id = $request->input('patient_id');
+        $appointment->date = $request->input('date');
+        $appointment->duration = $request->input('duration');
+        $appointment->save();
 
         $response = [
-            'msg' => 'Appointment created in store',
-            'appointment' => $appointment
+            'id' => $appointment->id
         ];
-
         return response()->json($response, 201);
     }
 

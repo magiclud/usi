@@ -17,19 +17,20 @@ Route::get('/', array('as' => 'home', 'uses' => 'HomeController@index'));
 //Route::get('/doctor/{id?}', function($id = null){
 //    echo "dsoctor READ".$id;
 //});
-
-Route::get('/doctor', ['uses' => 'DoctorController@create',
-    'as' => 'doctor.create',
-]);
+//Route::get('/doctor', ['uses' => 'DoctorController@create',
+//    'as' => 'doctor.create',
+//]);
 //
-Route::post('/doctor/create', ['uses' => 'DoctorController@create',
-    'as' => 'doctor.create',
-]);
-
-// Route::post('/appointment', ['uses' => 'AppointmentController@store',
-//    'as' => 'appointment',
-//    ]);
-//
+//Route::post('/doctor/create', ['uses' => 'DoctorController@store']);
+Route::group(['prefix' => '/doctor'], function() {
+    Route::post('/create', ['uses' => 'DoctorController@store']);
+    Route::post('/{id}/edit', ['uses' => 'DoctorController@edit']);
+    Route::put('/{id}/edit', ['uses' => 'DoctorController@edit']);
+    Route::delete('/{id}/delete', ['uses' => 'DoctorController@destroy']);
+    Route::get('/{id}/delete', ['uses' => 'DoctorController@destroy']);
+    Route::get('/{id}', ['uses' => 'DoctorController@show']);
+    Route::get('/', ['uses' => 'DoctorController@index']);
+});
 Route::group(['prefix' => '/appointment'], function() {
     Route::post('/create', ['uses' => 'AppointmentController@store',
         'as' => 'appointment',
