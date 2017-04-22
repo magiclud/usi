@@ -78,6 +78,11 @@ class DoctorController extends Controller {
         return response()->json($response, 201);
     }
 
+    public function read_appointment($id) {
+        $doctors_meeting = \App\Appointment::where('DOCTOR_id', $id)->get();
+        return response()->json($doctors_meeting, 201);
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
