@@ -119,11 +119,56 @@ class DoctorController extends Controller {
      * @return Response
      */
     public function update(Request $request, $id) {
-        $update_doctor = \App\Doctor::query()
-                ->where('id', $id)
-                ->update(['phone' => $request->input('phone')]);
-        $patient = \App\Doctor::findOrFail($id);
-        return response()->json($patient, 201);
+
+        $speciality_id = $request->input('speciality_id');
+        $SPECIALITY_id = $request->input('SPECIALITY_id');
+        $first_name = $request->input('first_name');
+        $last_name = $request->input('last_name');
+        $phone = $request->input('phone');
+        $gender = $request->input('gender');
+        $birthday = $request->input('birthday');
+        $email = $request->input('email');
+        $room = $request->input('room');
+
+        if ($SPECIALITY_id != NULL) {
+            $update_doctor = \App\Doctor::query()
+                    ->where('id', $id)
+                    ->update(['SPECIALITY_id' => $SPECIALITY_id]);
+        } else if ($speciality_id != NULL) {
+            $update_doctor = \App\Doctor::query()
+                    ->where('id', $id)
+                    ->update(['SPECIALITY_id' => $speciality_id]);
+        } else if ($first_name != NULL) {
+            $update_doctor = \App\Doctor::query()
+                    ->where('id', $id)
+                    ->update(['first_name' => $first_name]);
+        } else if ($last_name != NULL) {
+            $update_doctor = \App\Doctor::query()
+                    ->where('id', $id)
+                    ->update(['last_name' => $last_name]);
+        } else if ($phone != NULL) {
+            $update_doctor = \App\Doctor::query()
+                    ->where('id', $id)
+                    ->update(['phone' => $phone]);
+        } else if ($gender != NULL) {
+            $update_doctor = \App\Doctor::query()
+                    ->where('id', $id)
+                    ->update(['gender' => $gender]);
+        } else if ($birthday != NULL) {
+            $update_doctor = \App\Doctor::query()
+                    ->where('id', $id)
+                    ->update(['birthday' => $birthday]);
+        } else if ($email != NULL) {
+            $update_doctor = \App\Doctor::query()
+                    ->where('id', $id)
+                    ->update(['email' => $email]);
+        } else if ($room != NULL) {
+            $update_doctor = \App\Doctor::query()
+                    ->where('id', $id)
+                    ->update(['room' => $room]);
+        }
+        $doctor = \App\Doctor::findOrFail($id);
+        return response()->json($doctor, 201);
     }
 
     /**
@@ -135,7 +180,10 @@ class DoctorController extends Controller {
     public function destroy($id) {
         \App\Doctor::query()
                 ->where('id', $id)->delete();
-        return response()->json($id, 201);
+        $response = [
+            'id' => $id,
+        ];
+        return response()->json($response, 201);
     }
 
 }

@@ -115,9 +115,42 @@ class PatientController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id) {
-        $update_patient = \App\Patient::query()
-                ->where('id', $id)
-                ->update(['last_name' => $request->input('last_name')]);
+        $first_name = $request->input('first_name');
+        $last_name = $request->input('last_name');
+        $phone = $request->input('phone');
+        $gender = $request->input('gender');
+        $birthday = $request->input('birthday');
+        $email = $request->input('email');
+
+        if ($first_name != NULL) {
+            $update_doctor = \App\Patient::query()
+                    ->where('id', $id)
+                    ->update(['first_name' => $first_name]);
+        } else if ($last_name != NULL) {
+            $update_doctor = \App\Patient::query()
+                    ->where('id', $id)
+                    ->update(['last_name' => $last_name]);
+        } else if ($phone != NULL) {
+            $update_doctor = \App\Patient::query()
+                    ->where('id', $id)
+                    ->update(['phone' => $phone]);
+        } else if ($gender != NULL) {
+            $update_doctor = \App\Patient::query()
+                    ->where('id', $id)
+                    ->update(['gender' => $gender]);
+        } else if ($birthday != NULL) {
+            $update_doctor = \App\Patient::query()
+                    ->where('id', $id)
+                    ->update(['birthday' => $birthday]);
+        } else if ($email != NULL) {
+            $update_doctor = \App\Patient::query()
+                    ->where('id', $id)
+                    ->update(['email' => $email]);
+        }
+
+//        $update_patient = \App\Patient::query()
+//                ->where('id', $id)
+//                ->update(['last_name' => $request->input('last_name')]);
         $patient = \App\Patient::findOrFail($id);
         return response()->json($patient, 201);
     }
@@ -131,7 +164,10 @@ class PatientController extends Controller {
     public function destroy($id) {
         \App\Patient::query()
                 ->where('id', $id)->delete();
-        return response()->json($id, 201);
+        $response = [
+            'id' => $id,
+        ];
+        return response()->json($response, 201);
     }
 
 }

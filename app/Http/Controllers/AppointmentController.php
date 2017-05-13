@@ -83,9 +83,29 @@ class AppointmentController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id) {
-        $update_appointment = \App\Appointment::query()
-                ->where('id', $id)
-                ->update(['date' => $request->input('date')]);
+
+        $doctor_id = $request->input('doctor_id');
+        $patient_id = $request->input('patient_id');
+        $date = $request->input('date');
+        $duration = $request->input('duration');
+
+        if ($doctor_id != NULL) {
+            $update_appointment = \App\Appointment::query()
+                    ->where('id', $id)
+                    ->update(['DOCTOR_id' => $request->input('doctor_id')]);
+        } else if ($patient_id != NULL) {
+            $update_appointment = \App\Appointment::query()
+                    ->where('id', $id)
+                    ->update(['PATIENT_id' => $request->input('patient_id')]);
+        } else if ($date != NULL) {
+            $update_appointment = \App\Appointment::query()
+                    ->where('id', $id)
+                    ->update(['date' => $request->input('date')]);
+        } else if ($duration != NULL) {
+            $update_appointment = \App\Appointment::query()
+                    ->where('id', $id)
+                    ->update(['duration' => $request->input('duration')]);
+        }
         $appointment = \App\Appointment::findOrFail($id);
         return response()->json($appointment, 201);
     }
@@ -99,7 +119,10 @@ class AppointmentController extends Controller {
     public function destroy($id) {
         \App\Appointment::query()
                 ->where('id', $id)->delete();
-        return response()->json($id, 201);
+        $response = [
+            'id' => $id,
+        ];
+        return response()->json($response, 201);
     }
 
 }
