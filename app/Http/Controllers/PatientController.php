@@ -77,7 +77,7 @@ class PatientController extends Controller {
     public function read_appointment($patient_id, $appointment_id) {
         $patient_meeting = \App\Appointment::query()
                         ->where('PATIENT_id', $patient_id)
-                        ->where('id', $appointment_id)->get();
+                        ->where('id', $appointment_id)->first();
         return response()->json($patient_meeting, 201);
     }
 
